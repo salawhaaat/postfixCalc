@@ -1,29 +1,48 @@
-# kolesa-upgrade-homework-7
+### Stack Calculator
 
-Дедлайн: 14.10.22 пятница 23:59  
-Домашнее задание по Go
+This project implements a simple stack-based calculator that supports basic arithmetic operations. It consists of packages for the calculator logic and test suites for ensuring the correctness of the implementation.
 
-### Реализуйте калькулятор на Go
+### Project Structure
 
-В домашнем задании предлагаем вам реализовать собственный консольный калькулятор на go.
+```golang
+├── cmd
+│   └── main.go
+├── go.mod
+├── go.sum
+├── internal
+│   └── calculator
+│       ├── calculator.go
+│       ├── evaluate.go
+│       ├── postfix.go
+│       └── tokenize.go
+└── tests
+    ├── suit1_test.go
+    └── suit2_test.go
+```
 
-Мы будем использовать базовый синтаксис Go.  
-Достаточно сделать с помощью fmt пакета. Необходимо сделать подобный калькулятор тому, который был реализован на PHP
-(в этом задании нет необходимости в веб сервере, достаточно сделать консольный калькулятор)
+- `cmd`: Contains the main application entry point.
+- `internal/calculator`: Implements the calculator logic, including tokenization, conversion to postfix notation, and evaluation of postfix expressions.
+- `tests`: Contains test suites for ensuring the correctness of the calculator implementation.
 
-Требования к основной части задания:
+### Usage
 
-- Программа должна принимать операнды и оператор(-ы) с помощью fmt.
-- Выполнять простые арифметические операции (сложение, вычитание, умножение и деление)
-- Валидировать данные перед вычислениями
-  - Проверка оператора (пример: выражение "5 q 2" не должно выполняться, так как "q" не является оператором)
-  - Проверка переданных переменных (являются ли они численными (int, float))
-- Добавление дополительной функциональности (степень числа, сравнение чисел, процент числа)
+To run the calculator application, execute the `main.go` file located in the `cmd` directory. Follow the on-screen instructions to input expressions and get the calculated results.
 
-Требования к дополнительной части задания:
-Необходимо добавить в реализацию калькулятора, возможность понимать приоритеты операций и вложенные скобки. Пример: 1+3\*(1+2/1-(2-1)) должно вывести 7
+### How to Run Tests
 
-- За основную часть: максимальная оценка 80%.
-- За дополнительную часть: максимальная оценка 20%.
+The project includes two test suites:
+1. `suit1_test.go`: Contains test cases for conversion, tokenization, and evaluation of infix expressions.
+2. `suit2_test.go`: Contains parametrized test cases for various arithmetic operations and error cases.
 
-UPD: ссылочка на установку go https://go.dev/dl/
+To run the tests, use the following command:
+
+```bash
+go test ./...
+```
+
+### Dependencies
+
+The project uses the following external dependencies:
+- `github.com/stretchr/testify/assert`: Provides assertion functions for testing.
+- `github.com/stretchr/testify/suite`: Provides support for test suites in Go testing.
+
