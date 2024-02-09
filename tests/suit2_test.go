@@ -7,6 +7,10 @@ import (
 	"github.com/stretchr/testify/suite"
 )
 
+type Suit2 struct {
+	CalculatorTest
+}
+
 // Parametrized test cases
 var TestCases = []struct {
 	Name           string
@@ -15,38 +19,68 @@ var TestCases = []struct {
 	ExpectedError  bool
 }{
 	{
-		Name:           "8.Invalid Calculation",
+		Name:           "1.Invalid Calculation",
 		Expression:     "5 + @ 3",
 		ExpectedResult: 0,
 		ExpectedError:  true,
 	},
 	{
-		Name:           "9.Valid Operator Check",
+		Name:           "2.Valid Operator Check",
 		Expression:     "+",
 		ExpectedResult: 0,
-		ExpectedError:  true,
+		ExpectedError:  false,
 	},
 	{
-		Name:           "10.Invalid Operator Check",
+		Name:           "3.Invalid Operator Check",
 		Expression:     "5",
 		ExpectedResult: false,
 		ExpectedError:  true,
 	},
 	{
-		Name:           "11.Valid Multiplication",
+		Name:           "4.Valid Multiplication",
 		Expression:     "5 * 3",
 		ExpectedResult: 15.0,
 		ExpectedError:  false,
 	},
 	{
-		Name:           "12.Invalid Division by Zero",
+		Name:           "5.Invalid Division by Zero",
 		Expression:     "6 / 0",
 		ExpectedResult: 0,
 		ExpectedError:  true,
 	},
+	{
+		Name:           "6.Valid Addition",
+		Expression:     "5 + 3",
+		ExpectedResult: 8.0,
+		ExpectedError:  false,
+	},
+	{
+		Name:           "7.Valid Subtraction",
+		Expression:     "5 - 3",
+		ExpectedResult: 2.0,
+		ExpectedError:  false,
+	},
+	{
+		Name:           "8.Valid Division",
+		Expression:     "6 / 3",
+		ExpectedResult: 2.0,
+		ExpectedError:  false,
+	},
+	{
+		Name:           "9.Valid Addition with Negative Numbers",
+		Expression:     "-5 + (-3)",
+		ExpectedResult: -8.0,
+		ExpectedError:  false,
+	},
+	{
+		Name:           "10.Valid Multiplication with Negative Numbers",
+		Expression:     "-5 * -3",
+		ExpectedResult: 15.0,
+		ExpectedError:  false,
+	},
 }
 
-func (suite *CalculatorTestSuite) TestParametrizedCalc() {
+func (suite *Suit2) TestParametrizedCalc() {
 	for _, tc := range TestCases {
 		suite.Run(tc.Name, func() {
 			switch tc.ExpectedResult.(type) {
@@ -69,5 +103,5 @@ func (suite *CalculatorTestSuite) TestParametrizedCalc() {
 }
 
 func TestRunSuite2(t *testing.T) {
-	suite.Run(t, new(CalculatorTestSuite))
+	suite.Run(t, new(Suit2))
 }
