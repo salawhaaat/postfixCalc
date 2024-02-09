@@ -8,16 +8,19 @@ import (
 	"github.com/stretchr/testify/suite"
 )
 
-type CalculatorTestSuite struct {
+type CalculatorTest struct {
 	suite.Suite
 	Calc *calculator.Calculator
 }
+type Suit1 struct {
+	CalculatorTest
+}
 
-func (suite *CalculatorTestSuite) SetupTest() {
+func (suite *CalculatorTest) SetupTest() {
 	suite.Calc = calculator.New()
 }
 
-func (suite *CalculatorTestSuite) TearDownTest() {
+func (suite *CalculatorTest) TearDownTest() {
 	// Clean up any test-specific resources here
 }
 
@@ -86,9 +89,33 @@ var conversionTestCases = []struct {
 		EvaluateResult:  11.0,
 		ExpectedError:   false,
 	},
+	{
+		Name:            "8.Valid Infix Expression with Spaces",
+		InfixExpression: "   5   +   3  * 2 ",
+		PostfixResult:   []string{"5", "3", "2", "*", "+"},
+		Tokenize:        []string{"5", "+", "3", "*", "2"},
+		EvaluateResult:  11.0,
+		ExpectedError:   false,
+	},
+	{
+		Name:            "9.Valid Expression with Negative number",
+		InfixExpression: "-3+5",
+		PostfixResult:   []string{"3", "-", "5", "+"},
+		Tokenize:        []string{"-", "3", "+", "5"},
+		EvaluateResult:  -2,
+		ExpectedError:   false,
+	},
+	{
+		Name:            "10.Valid Infix Expression with Multiplication Negative number",
+		InfixExpression: "(5 + 3) * -2",
+		PostfixResult:   []string{"5", "3", "+", "*", "2", "-"},
+		Tokenize:        []string{"(", "5", "+", "3", ")", "*", "-", "2"},
+		EvaluateResult:  -16.0,
+		ExpectedError:   false,
+	},
 }
 
-func (suite *CalculatorTestSuite) TestConversionCases() {
+func (suite *Suit1) TestConversionCases() {
 	for _, tc := range conversionTestCases {
 		suite.Run(tc.Name, func() {
 			// Test Infix to Postfix Conversion
@@ -113,5 +140,5 @@ func (suite *CalculatorTestSuite) TestConversionCases() {
 }
 
 func TestRunSuite1(t *testing.T) {
-	suite.Run(t, new(CalculatorTestSuite))
+	suite.Run(t, new(Suit1))
 }
